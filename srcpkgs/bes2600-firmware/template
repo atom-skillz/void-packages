@@ -1,0 +1,27 @@
+# Template file for 'bes2600-firmware'
+pkgname=bes2600-firmware
+version=0.1
+revision=1
+build_style=fetch
+depends="git"
+short_desc="Firmware files for BES2600 wifi"
+maintainer="atom_skillz <atom.skillz@protonmail.com>"
+license="Closed"
+homepage="https://gitlab.com/pine64-org/bes2600-firmware"
+_commit=cd21914580fcfd5ca6eef0872de0fd2b28d81d41
+
+distfiles="https://gitlab.com/pine64-org/bes2600-firmware/-/archive/${_commit}/bes2600-firmware-${_commit}.tar.gz"
+checksum="81bf891326d71c06704764f7bb29f17d49a2181f629f771a60c968c8a1e3a65b"
+# distfiles="https://gitlab.com/pine64-org/bes2600-firmware/archive/v${version}.tar.gz"
+# checksum=83fb98153b1906c85946efb18eaad52a95a297a36528f975ba006e650e8459bd
+
+do_install() {
+    bsdtar xvf bes2600-firmware-${_commit}.tar.gz --strip-components=1
+    vinstall firmware/bes2600/bes2600_factory.txt 644 /usr/lib/bes2600
+    vinstall firmware/bes2600/best2002_fw_boot_sdio.bin 644 /usr/lib/bes2600
+    vinstall firmware/bes2600/best2002_fw_sdio.bin 644 /usr/lib/bes2600
+    vinstall firmware/bes2600/best2002_fw_sdio_btrf.bin 644 /usr/lib/bes2600
+    vinstall firmware/bes2600/best2002_fw_sdio_nosignal.bin 644 /usr/lib/bes2600
+    
+    vlicense LICENSE
+}

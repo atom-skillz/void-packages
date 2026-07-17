@@ -1,0 +1,33 @@
+# Template file for 'uboot-pinetab2'
+pkgname=uboot-pinetab2
+version=2026.04
+revision=5
+depends="u-boot-tools mtd-utils"
+short_desc="U-Boot for the PineTab 2"
+maintainer="atom_skillz <atom.skillz@protonmail.com>"
+license="GPL"
+homepage="https://docs.u-boot-project.org/en/latest/"
+
+distfiles="https://github.com/u-boot/u-boot/archive/refs/tags/v${version}.tar.gz"
+checksum=fcf947fe716e77b698208adb5c2fd7240fc629ca46df8e1ed35d64cbbe42219d
+
+do_build() {
+    pwd
+    ls
+    exit
+    #make pinetab2-rk3566_defconfig
+
+    #make EXTRAVERSION=-${pkgrel} \
+    #    BL31=../bl31.elf \
+    #    ROCKCHIP_TPL=../rkbin/bin/rk35/rk3566_ddr_1056MHz_v1.23.bin
+}
+
+do_install() {
+    vinstall u-boot/idbloader.img 644 /boot
+    vinstall u-boot/u-boot.itb 644 /boot
+    vinstall u-boot/u-boot-rockchip-spi.bin 644 /boot
+    vinstall u-boot/boot.txt 644 /boot
+    vinstall u-boot/mkscr 644 /boot
+
+    vinstall update-u-boot 644 /usr/bin
+}

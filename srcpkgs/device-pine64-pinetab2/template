@@ -1,0 +1,26 @@
+# Template file for 'device-pine64-pinetab2'
+pkgname=device-pine64-pinetab2
+version=0.2
+revision=5
+build_style=fetch
+depends="bes2600-firmware linux-pinetab2 uboot-pinetab2"
+short_desc="PineTab 2 device package"
+maintainer="atom_skillz <atom.skillz@protonmail.com>"
+license="MIT"
+homepage="https://codeberg.org/DanctNIX/danctnix-packages"
+
+# distfiles="https://github.com/bahamas10/zzz-user-hooks/archive/v${version}.tar.gz"
+# checksum=83fb98153b1906c85946efb18eaad52a95a297a36528f975ba006e650e8459bd
+
+do_install() {
+    vinstall machine-info 644 /etc
+    vinstall gsk-renderer-gl.sh 755 -t /etc/profile.d
+    vlicense LICENSE
+
+    # Preconfigured Kscreen for KDE
+    vinstall kscreen-b5350822fc24a835e633b5bf90f2b56d 755 /etc/skel/.local/share/kscreen b5350822fc24a835e633b5bf90f2b56d
+    vinstall kscreen-outputs-b5350822fc24a835e633b5bf90f2b56d 755 /etc/skel/.local/share/kscreen/outputs b5350822fc24a835e633b5bf90f2b56d
+
+    # 1x scaling for Phosh
+    vinstall phoc.ini 644 /etc/phosh
+}
